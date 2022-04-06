@@ -261,3 +261,64 @@ body.third-theme .calculator-calculate > #equal {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
+
+@media only screen and (max-width:480px) {
+  .header {
+    width: 315px;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+  }
+  .total {
+    width: 288px;
+  }
+  .calculator {
+    width: 280px;
+    padding: 24px;
+  }
+  .theme-number {
+    gap: 16px;
+  }
+  h5 {
+    font-size: 12px;
+  }
+  .theme-toggle {
+    height: 25px;
+  }
+  .theme-toggle label {
+    height: 15px;
+    width: 15px;
+  }
+  .btn-theme-toggle {
+    height: 15px;
+    width: 15px;
+  }
+  #first_toggle:checked ~ .btn-theme-toggle {
+    left: 6px;
+  }
+  #second_toggle:checked ~ .btn-theme-toggle {
+    left: 28px;
+  }
+  #third_toggle:checked ~ .btn-theme-toggle {
+    left: 52px;
+  }
+  .total {
+    margin-bottom: 20px;
+  }
+  .calculator-numbers {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .btn-calculator {
+    font-size: 28px;
+    padding: 18px 0px 16px 0px;
+  }
+  .calculator-numbers > #del,
+  .calculator-calculate > #reset,
+  .calculator-calculate > #equal {
+    font-size: 16px;
+  }
+}
