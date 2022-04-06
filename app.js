@@ -19,7 +19,14 @@ const divide = document.querySelector(".divide");
 const decimal = document.querySelector(".decimal");
 const equal = document.querySelector(".equal");
 let total = '';
+let firstNum = '';
 let secondNum = '';
+let totalAmount = '';
+let formattedAmount = '';
+let sign = '';
+let signTwo = '';
+const numbers = [one, two, three, four, five, six, seven, eight, nine, zero]
+const operators = [plus, minus, times, divide]
 
 btns.forEach((btn) => {
   btn.addEventListener("click", (event) => {
@@ -33,136 +40,114 @@ btns.forEach((btn) => {
 
 const addComma = (num) => {
   withoutComma = num.replace(/,/g, '');
-  number = parseInt(withoutComma);
-  return number.toLocaleString('en-US');
+  number = Number(withoutComma);
+  return number.toLocaleString('en-US', { maximumFractionDigits: 15 });
 }
 
-one.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 1;
-    total = 1;
-  } else {
-    total = total + '1';
-    total = addComma(total);
-    totalNum.innerText = total;
+const checkComma = (string) => {
+  let testString = string
+  if (/[,]/.test(string)) {
+    testString = string.replace(/,/g, '');
   }
-})
+  return testString;
+}
 
-two.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 2;
-    total = 2;
-  } else {
-    total = total + '2';
-    total = addComma(total);
-    totalNum.innerText = total;
+const formula = (num1, num2, op) => {
+  let number = '';
+  if (op === '+') {
+    number = num1 + num2;
+  } else if (op === '-') {
+    number = num1 - num2;
+  } else if (op === 'x') {
+    number = num1 * num2;
+  } else if (op === '/') {
+    number = num1 / num2;
   }
-})
+  return number;
+}
 
-three.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 3;
-    total = 3;
-  } else {
-    total = total + '3';
-    total = addComma(total);
-    totalNum.innerText = total;
-  }
-})
-
-four.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 4;
-    total = 4;
-  } else {
-    total = total + '4';
-    total = addComma(total);
-    totalNum.innerText = total;
-  }
-})
-
-five.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 5;
-    total = 5;
-  } else {
-    total = total + '5';
-    total = addComma(total);
-    totalNum.innerText = total;
-  }
-})
-
-six.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 6;
-    total = 6;
-  } else {
-    total = total + '6';
-    total = addComma(total);
-    totalNum.innerText = total;
-  }
-})
-
-seven.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 7;
-    total = 7;
-  } else {
-    total = total + '7';
-    total = addComma(total);
-    totalNum.innerText = total;
-  }
-})
-
-eight.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 8;
-    total = 8;
-  } else {
-    total = total + '8';
-    total = addComma(total);
-    totalNum.innerText = total;
-  }
-})
-
-nine.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
-    totalNum.innerText = 9;
-    total = 9;
-  } else {
-    total = total + '9';
-    total = addComma(total);
-    totalNum.innerText = total;
-  }
-})
-
-zero.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (totalNum.innerText === '0') {
+const calculate = (op) => {
+  if (firstNum === '') {
+    firstNum = total
     totalNum.innerText = 0;
-  } else {
-    total = total + '0';
-    totalNum.innerText = total;
+    total = '0'
+  } else if (firstNum !== '' && secondNum === '') {
+    secondNum = total
+    firstNum = checkComma(firstNum);
+    secondNum = checkComma(secondNum);
+    const first = Number(firstNum);
+    const second = Number(secondNum);
+    totalAmount = formula(first, second, op);
+    formattedAmount = totalAmount.toLocaleString('en-US', { maximumFractionDigits: 15 });
+    if (formattedAmount.length > 15) {
+      if (/[,]/.test(formattedAmount)) {
+        formattedAmount = formattedAmount.replace(/,/g, '');
+      }
+      formattedAmount = formattedAmount.slice(0, 16);
+      formattedAmount = formattedAmount.toLocaleString('en-US', { maximumFractionDigits: 15 });
+      if (formattedAmount.slice(-1) === '.') {
+        formattedAmount = formattedAmount.slice(0, -1);
+      };
+    }
+    totalNum.innerText = formattedAmount;
+    firstNum = formattedAmount
+    secondNum = '';
+    total='';
   }
+}
+
+operators.forEach((operator) => {
+  operator.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (sign === '') {
+      sign = event.currentTarget.innerText;
+      calculate(sign);
+    } else if (sign !== '' && signTwo === '') {
+      signTwo = event.currentTarget.innerText;
+      calculate(sign);
+    } else if (sign !== '' && signTwo !== '') {
+      sign = signTwo;
+      signTwo = event.currentTarget.innerText;
+      calculate(sign);
+    }
+  })
+})
+
+equal.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (signTwo === '') {
+    calculate(sign);
+  } else {
+    calculate(signTwo);
+  }
+})
+
+numbers.forEach((number) => {
+  number.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (totalNum.innerText === '0') {
+      totalNum.innerText = event.currentTarget.innerText;
+      total = event.currentTarget.innerText;
+    } else if (total.length <= 15 || total.length === undefined) {
+      total = total + event.currentTarget.innerText;
+      if (!(/[\.]/.test(total))) {
+        total = addComma(total);
+      }
+      totalNum.innerText = total;
+    }
+  })
 })
 
 decimal.addEventListener("click", (event) => {
   event.preventDefault();
-  if (totalNum.innerText === '0') {
+  if ((/[\.]/.test(total))) {
+    total = total;
+    totalNum.innerText = total;
+  } else if (totalNum.innerText === '0' || total === '') {
     totalNum.innerText = '0.';
     total = '0.';
-  } else {
+  } else if (total.length <= 15 || total.length === undefined) {
     total = total + '.';
-    total = addComma(total);
     totalNum.innerText = total;
   }
 })
@@ -172,12 +157,26 @@ del.addEventListener("click", (event) => {
   if (totalNum.innerText === '0') {
     totalNum.innerText = '0';
     total = '0';
+  } else if (total.length === 1 || total.length === undefined) {
+    totalNum.innerText = '0';
+    total = '0';
   } else {
-    total = total.slice(0, -1);
-    if (total === '') {
-      total = '0';
+    firstNum = firstNum.slice(0, -1);
+    if (!(/[\.]/.test(firstNum))) {
+      firstNum = addComma(firstNum);
     }
-    total = addComma(total);
-    totalNum.innerText = total;
+    totalNum.innerText = firstNum;
   }
+})
+
+reset.addEventListener("click", (event) => {
+  event.preventDefault;
+  totalNum.innerText = '0'
+  total = '0'
+  firstNum = '';
+  secondNum = '';
+  totalAmount = '';
+  formattedAmount = '';
+  sign = '';
+  signTwo = '';
 })
