@@ -201,9 +201,7 @@ del.addEventListener("click", (event) => {
   } else if (firstNum !== "") {
     firstNum = totalNum.innerText;
     firstNum = firstNum.replace(/,/g, "");
-    console.log(firstNum);
     firstNum = firstNum.slice(0, -1);
-    console.log(firstNum);
     if (total === "-") {
       firstNum = "0";
       totalNum.innerText = firstNum;
