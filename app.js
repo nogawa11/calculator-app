@@ -84,7 +84,7 @@ const calculate = (op) => {
         formattedAmount = formattedAmount.replace(/,/g, '');
       }
       formattedAmount = formattedAmount.slice(0, 16);
-      formattedAmount = formattedAmount.toLocaleString('en-US', { maximumFractionDigits: 15 });
+      formattedAmount = addComma(formattedAmount);
       if (formattedAmount.slice(-1) === '.') {
         formattedAmount = formattedAmount.slice(0, -1);
       };
@@ -161,11 +161,23 @@ del.addEventListener("click", (event) => {
     totalNum.innerText = '0';
     total = '0';
   } else {
-    firstNum = firstNum.slice(0, -1);
-    if (!(/[\.]/.test(firstNum))) {
-      firstNum = addComma(firstNum);
+    total = totalNum.innerText
+    total = total.replace(/,/g, '');
+    total = total.slice(0, -1);
+    if (total === '-') {
+      total = '0';
+      totalNum.innerText = total;
+    } else {
+      if (!(/[\.]/.test(total))) {
+        total = addComma(total);
+      }
+      totalNum.innerText = total;
+      firstNum = total;
+      secondNum = '';
+      sign = '';
+      signTwo = '';
+      total = '';
     }
-    totalNum.innerText = firstNum;
   }
 })
 
