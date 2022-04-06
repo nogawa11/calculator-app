@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Frontend Mentor | Calculator app</title>
+</head>
+<body>
+  <div class="main">
+    <div class="header">
+      <h2>calc</h2>
+      <div class="theme">
+        <h5>theme</h5>
+        <div class="theme-choice">
+          <div class="theme-number">
+            <h5>1</h5>
+            <h5>2</h5>
+            <h5>3</h5>
+          </div>
+          <div class="theme-toggle">
+            <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
+            <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
+            <input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
+            <label for="first_toggle">1</label>
+            <label for="second_toggle">2</label>
+            <label for="third_toggle">3</label>
+            <div class="btn-theme-toggle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="total">
+      <h1 id="total-number">0</h1>
+    </div>
+    <div class="calculator">
+      <div class="calculator-numbers">
+        <button class="btn-calculator" id="7">7</button>
+        <button class="btn-calculator" id="8">8</button>
+        <button class="btn-calculator" id="9">9</button>
+        <button class="btn-calculator" id="del">Del</button>
+        <button class="btn-calculator" id="4">4</button>
+        <button class="btn-calculator" id="5">5</button>
+        <button class="btn-calculator" id="6">6</button>
+        <button class="btn-calculator" id="plus">+</button>
+        <button class="btn-calculator" id="1">1</button>
+        <button class="btn-calculator" id="2">2</button>
+        <button class="btn-calculator" id="3">3</button>
+        <button class="btn-calculator" id="minus">-</button>
+        <button class="btn-calculator" id="decimal">.</button>
+        <button class="btn-calculator" id="0">0</button>
+        <button class="btn-calculator" id="divide">/</button>
+        <button class="btn-calculator" id="times">x</button>
+      </div>
+      <div class="calculator-calculate">
+        <button class="btn-calculator" id="reset">Reset</button>
+        <button class="btn-calculator" id="equal">=</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
