@@ -83,20 +83,28 @@ const calculate = (op) => {
     const first = Number(firstNum);
     const second = Number(secondNum);
     formattedAmount = formula(first, second, op);
-    if (formattedAmount.length > 15) {
+    if (formattedAmount.length >= 15) {
       if (/[,]/.test(formattedAmount)) {
         formattedAmount = formattedAmount.replace(/,/g, "");
       }
-      formattedAmount = formattedAmount.slice(0, 16);
-      formattedAmount = addComma(formattedAmount);
-      if (formattedAmount.slice(-1) === ".") {
-        formattedAmount = formattedAmount.slice(0, -1);
-      };
+      if (Number(formattedAmount) > 1000000000000) {
+        firstNum = formattedAmount
+        totalNum.innerText = "Too large a number";
+      } else {
+        formattedAmount = formattedAmount.slice(0, 16);
+        formattedAmount = addComma(formattedAmount);
+        if (formattedAmount.slice(-1) === ".") {
+          formattedAmount = formattedAmount.slice(0, -1);
+        };
+        firstNum = formattedAmount;
+        totalNum.innerText = formattedAmount;
+      }
+    } else {
+      firstNum = formattedAmount;
+      totalNum.innerText = formattedAmount;
     }
-    totalNum.innerText = formattedAmount;
-    firstNum = formattedAmount;
     secondNum = "";
-    total="";
+    total= "";
   }
 }
 
@@ -106,19 +114,20 @@ opBtns.forEach((operator) => {
     check.push("sign");
     if (check.at(-1) === "sign" && check.at(-2) === "sign" && check.includes("num")) {
       signTwo = event.currentTarget.innerText;
-      calculate(signTwo);
-    } else if (check.includes("num")) {
-      if (sign === "") {
-        sign = event.currentTarget.innerText;
-        calculate(sign);
-      } else if (sign !== "" && signTwo === "") {
-        signTwo = event.currentTarget.innerText;
-        calculate(sign);
-      } else if (sign !== "" && signTwo !== "") {
-        sign = signTwo;
-        signTwo = event.currentTarget.innerText;
-        calculate(sign);
-      }
+      firstNum = totalNum.innerText;
+    } else if (check.at(-2) === "del" && check.includes("num")) {
+      sign = event.currentTarget.innerText;
+      calculate(sign);
+    } else if (sign === "" && check.includes("num")) {
+      sign = event.currentTarget.innerText;
+      calculate(sign);
+    } else if (sign !== "" && signTwo === "" && check.includes("num")) {
+      signTwo = event.currentTarget.innerText;
+      calculate(sign);
+    } else if (sign !== "" && signTwo !== "" && check.includes("num")) {
+      sign = signTwo;
+      signTwo = event.currentTarget.innerText;
+      calculate(sign);
     }
   })
 })
@@ -165,29 +174,48 @@ decimal.addEventListener("click", (event) => {
 
 del.addEventListener("click", (event) => {
   event.preventDefault();
+  check.push("del");
   if (totalNum.innerText === "0") {
     totalNum.innerText = "0";
     total = "0";
   } else if (total.length === 1 || total.length === undefined) {
     totalNum.innerText = "0";
     total = "0";
-  } else {
-    total = totalNum.innerText;
-    total = total.replace(/,/g, "");
-    total = total.slice(0, -1);
+  } else if (firstNum === "") {
+    firstNum = totalNum.innerText;
+    firstNum = firstNum.replace(/,/g, "");
+    firstNum = firstNum.slice(0, -1);
     if (total === "-") {
-      total = "0";
-      totalNum.innerText = total;
+      firstNum = "0";
+      totalNum.innerText = firstNum;
     } else {
-      if (!(/[\.]/.test(total))) {
-        total = addComma(total);
+      if (!(/[\.]/.test(firstNum))) {
+        firstNum = addComma(firstNum);
       }
-      totalNum.innerText = total;
-      firstNum = total;
+      totalNum.innerText = firstNum;
       secondNum = "";
+      total = "";
       sign = "";
       signTwo = "";
+    }
+  } else if (firstNum !== "") {
+    firstNum = totalNum.innerText;
+    firstNum = firstNum.replace(/,/g, "");
+    console.log(firstNum);
+    firstNum = firstNum.slice(0, -1);
+    console.log(firstNum);
+    if (total === "-") {
+      firstNum = "0";
+      totalNum.innerText = firstNum;
+    } else {
+      if (!(/[\.]/.test(firstNum))) {
+        firstNum = addComma(firstNum);
+      }
+      totalNum.innerText = firstNum;
+      secondNum = "";
       total = "";
+      sign = "";
+      signTwo = "";
     }
   }
 })
