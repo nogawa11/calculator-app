@@ -1,23 +1,15 @@
 const btns = document.querySelectorAll(".btn-calculator");
+const numBtns = document.querySelectorAll(".btn-num");
+const opBtns = document.querySelectorAll(".btn-op");
 const totalNum = document.querySelector(".total");
-const zero = document.querySelector(".zero");
-const one = document.querySelector(".one");
-const two = document.querySelector(".two");
-const three = document.querySelector(".three");
-const four = document.querySelector(".four");
-const five = document.querySelector(".five");
-const six = document.querySelector(".six");
-const seven = document.querySelector(".seven");
-const eight = document.querySelector(".eight");
-const nine = document.querySelector(".nine");
 const del = document.querySelector(".del");
 const reset = document.querySelector(".reset");
-const plus = document.querySelector(".plus");
-const minus = document.querySelector(".minus");
-const times = document.querySelector(".times");
-const divide = document.querySelector(".divide");
 const decimal = document.querySelector(".decimal");
 const equal = document.querySelector(".equal");
+const firstToggle = document.querySelector(".first_toggle");
+const secondToggle = document.querySelector(".second_toggle");
+const thirdToggle = document.querySelector(".third_toggle");
+const body = document.querySelector("body");
 let total = "";
 let firstNum = "";
 let secondNum = "";
@@ -25,8 +17,21 @@ let formattedAmount = "";
 let sign = "";
 let signTwo = "";
 let check = [];
-const numbers = [one, two, three, four, five, six, seven, eight, nine, zero]
-const operators = [plus, minus, times, divide]
+
+firstToggle.addEventListener("click", (event) => {
+  body.classList.remove("second-theme");
+  body.classList.remove("third-theme");
+})
+
+secondToggle.addEventListener("click", (event) => {
+  body.classList.remove("third-theme");
+  body.classList.add("second-theme");
+})
+
+thirdToggle.addEventListener("click", (event) => {
+  body.classList.remove("second-theme");
+  body.classList.add("third-theme");
+})
 
 btns.forEach((btn) => {
   btn.addEventListener("click", (event) => {
@@ -95,7 +100,7 @@ const calculate = (op) => {
   }
 }
 
-operators.forEach((operator) => {
+opBtns.forEach((operator) => {
   operator.addEventListener("click", (event) => {
     event.preventDefault();
     check.push("sign");
@@ -127,7 +132,7 @@ equal.addEventListener("click", (event) => {
   }
 })
 
-numbers.forEach((number) => {
+numBtns.forEach((number) => {
   number.addEventListener("click", (event) => {
     event.preventDefault();
     if (totalNum.innerText === "0") {
