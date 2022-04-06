@@ -104,12 +104,9 @@ h5 {
   align-items: center;
   padding: 22px 16px 16px 16px;
   margin-bottom: 16px;
-}
-h1 {
-  padding: 0;
-  margin: 0;
   color: white;
   font-size: 36px;
+  font-weight: 700;
 }
 
 .calculator {
@@ -129,7 +126,7 @@ h1 {
 .btn-calculator {
   background-color: hsl(30, 25%, 89%);
     border: 0;
-    box-shadow: inset 0px -5px 0px 0px hsl(28deg 16% 65%);
+    box-shadow: inset 0px -4px 0px 0px hsl(28deg 16% 65%);
     border-radius: 8px;
     color: hsl(224, 23%, 35%);
     font-size: 24px;
@@ -143,14 +140,18 @@ h1 {
 .calculator-numbers > #del, .calculator-calculate > #reset {
   background-color: hsl(225, 21%, 49%);
   color: white;
-  box-shadow: inset 0px -5px 0px 0px hsl(224deg 28% 35%);
+  box-shadow: inset 0px -4px 0px 0px hsl(224deg 28% 35%);
   font-size: 14px;
+}
+
+.calculator-numbers > #times {
+  text-transform: lowercase;
 }
 
 .calculator-calculate > #equal {
   background-color: hsl(6, 63%, 50%);
   color: white;
-  box-shadow: inset 0px -5px 0px 0px hsl(6, 70%, 34%);
+  box-shadow: inset 0px -4px 0px 0px hsl(6, 70%, 34%);
 }
 
 .btn-calculator.active {
