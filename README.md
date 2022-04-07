@@ -1,6 +1,6 @@
 # Frontend Mentor - Calculator app
 
-A calculator app with three themes created using JavaScript, HTML, and CSS.
+A calculator app with three color themes created using JavaScript, HTML, and CSS.
 
 [Link to app](https://nogawa11.github.io/calculator-app/)
 
